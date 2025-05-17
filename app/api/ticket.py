@@ -10,11 +10,12 @@ from app.controllers.ticket import (
     update_ticket,
     delete_ticket
 )
+from app.core.security import get_current_user
 
 router = APIRouter()
 
 @router.post("/", response_model=TicketOut, status_code=status.HTTP_201_CREATED)
-async def create(ticket: TicketCreate, db: AsyncSession = Depends(get_db)):
+async def create(ticket: TicketCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
     """
     Create a new support ticket.
     """
@@ -35,14 +36,14 @@ async def get(ticket_id: int, db: AsyncSession = Depends(get_db)):
     return await get_ticket_by_id(db, ticket_id)
 
 @router.put("/{ticket_id}", response_model=TicketOut)
-async def update(ticket_id: int, update_data: TicketUpdate, db: AsyncSession = Depends(get_db)):
+async def update(ticket_id: int, update_data: TicketUpdate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
     """
     Update a support ticket by ID.
     """
     return await update_ticket(db, ticket_id, update_data)
 
 @router.delete("/{ticket_id}", status_code=status.HTTP_200_OK)
-async def delete(ticket_id: int, db: AsyncSession = Depends(get_db)):
+async def delete(ticket_id: int, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
     """
     Delete a support ticket by ID.
     """

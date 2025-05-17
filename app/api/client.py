@@ -9,12 +9,13 @@ from app.controllers.client import (
     update_client,
     delete_client
 )
+from app.core.security import get_current_user
 from typing import List
 
 router = APIRouter()
 
 @router.post("/", response_model=ClientOut)
-async def create(client: ClientCreate, db: AsyncSession = Depends(get_db)):
+async def create(client: ClientCreate, db: AsyncSession = Depends(get_db), user=Depends(get_current_user)):
     """
     Create a new client.
     """
