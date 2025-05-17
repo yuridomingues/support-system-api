@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual env
+.venv/
+env/
+venv/
+pip-selfcheck.json
+
+# dotenv
+.env
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Alembic
+alembic/versions/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
