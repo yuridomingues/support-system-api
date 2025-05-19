@@ -12,7 +12,8 @@ dependencies = [
     "python-dotenv",
     "alembic",
     "pydantic",
-    "pydantic-settings"
+    "pydantic-settings",
+    "python-jose[cryptography]"
 ]
 
 [tool.fastapi]
