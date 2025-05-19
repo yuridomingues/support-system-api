@@ -15,7 +15,7 @@ router = APIRouter()
 @router.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not authenticate_user(form_data.username, form_data.password):
-        raise HTTPException(status_code=400, detail="Usuário ou senha inválidos")
+        raise HTTPException(status_code=401, detail="Usuário ou senha inválidos")
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
