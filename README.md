@@ -27,6 +27,19 @@ API developed in **FastAPI** for registering and managing clients and support ti
 - Docker and Docker Compose
 - `uv` (optional, but recommended)
 
+## Create and activate the virtual environment using 'uv'
+uv venv
+
+# Activate the virtual environment (Linux/macOS)
+source .venv/bin/activate
+
+# Activate the virtual environment (Windows PowerShell)
+# .\.venv\Scripts\Activate.ps1
+
+# Synchronize dependencies using uv
+uv sync
+
+
 ## `.env` File Configuration
 
 To run the application, you need to create a `.env` file in the project root with the following environment variables:
