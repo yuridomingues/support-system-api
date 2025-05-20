@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.controllers.ticket import (
@@ -29,7 +29,7 @@ async def create(
     return await create_ticket(db, ticket)
 
 
-@router.get("/", response_model=List[TicketOut])
+@router.get("/", response_model=List[TicketOut], status_code=status.HTTP_200_OK)
 async def list_tickets(
     db: AsyncSession = Depends(get_db),
     order_by: str = "id",
@@ -44,7 +44,7 @@ async def list_tickets(
     return await get_tickets(db, order_by, order_dir, skip, limit)
 
 
-@router.get("/{ticket_id}", response_model=TicketOut)
+@router.get("/{ticket_id}", response_model=TicketOut, status_code=status.HTTP_200_OK)
 async def get(
     ticket_id: int,
     db: AsyncSession = Depends(get_db),
@@ -56,7 +56,7 @@ async def get(
     return await get_ticket_by_id(db, ticket_id)
 
 
-@router.put("/{ticket_id}", response_model=TicketOut)
+@router.put("/{ticket_id}", response_model=TicketOut, status_code=status.HTTP_200_OK)
 async def update(
     ticket_id: int,
     update_data: TicketUpdate,
@@ -69,7 +69,7 @@ async def update(
     return await update_ticket(db, ticket_id, update_data)
 
 
-@router.delete("/{ticket_id}", status_code=status.HTTP_200_OK)
+@router.delete("/{ticket_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete(
     ticket_id: int,
     db: AsyncSession = Depends(get_db),
@@ -78,4 +78,5 @@ async def delete(
     """
     Delete a support ticket by ID.
     """
-    return await delete_ticket(db, ticket_id)
+    await delete_ticket(db, ticket_id)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

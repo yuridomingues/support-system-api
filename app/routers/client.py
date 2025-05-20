@@ -17,7 +17,7 @@ from app.schemas.client import ClientCreate, ClientOut, ClientUpdate
 router = APIRouter()
 
 
-@router.post("/", response_model=ClientOut)
+@router.post("/", response_model=ClientOut, status_code=status.HTTP_201_CREATED)
 async def create(
     client: ClientCreate,
     db: AsyncSession = Depends(get_db),
@@ -29,7 +29,7 @@ async def create(
     return await create_client(db, client)
 
 
-@router.get("/", response_model=List[ClientOut])
+@router.get("/", response_model=List[ClientOut], status_code=status.HTTP_200_OK)
 async def list_clients(
     db: AsyncSession = Depends(get_db),
     order_by: str = "id",
@@ -44,7 +44,7 @@ async def list_clients(
     return await get_clients(db, order_by, order_dir, skip, limit)
 
 
-@router.get("/{client_id}", response_model=ClientOut)
+@router.get("/{client_id}", response_model=ClientOut, status_code=status.HTTP_200_OK)
 async def get_client(
     client_id: int,
     db: AsyncSession = Depends(get_db),
@@ -56,7 +56,7 @@ async def get_client(
     return await get_client_by_id(db, client_id)
 
 
-@router.put("/{client_id}", response_model=ClientOut)
+@router.put("/{client_id}", response_model=ClientOut, status_code=status.HTTP_200_OK)
 async def update(
     client_id: int,
     update_data: ClientUpdate,
@@ -69,7 +69,7 @@ async def update(
     return await update_client(db, client_id, update_data)
 
 
-@router.delete("/{client_id}", status_code=status.HTTP_200_OK)
+@router.delete("/{client_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete(
     client_id: int,
     db: AsyncSession = Depends(get_db),
