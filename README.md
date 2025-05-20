@@ -27,18 +27,36 @@ API developed in **FastAPI** for registering and managing clients and support ti
 - Docker and Docker Compose
 - `uv` (optional, but recommended)
 
-## Create and activate the virtual environment using 'uv'
+## Virtual Environment Setup with `uv`
+
+It is recommended to use [`uv`](https://github.com/astral-sh/uv) to simplify virtual environment creation and dependency synchronization.
+
+### Create and activate the virtual environment
+
+```bash
 uv venv
+```
 
-# Activate the virtual environment (Linux/macOS)
+### Activate the virtual environment
+
+- On Linux/macOS:
+
+```bash
 source .venv/bin/activate
+```
 
-# Activate the virtual environment (Windows PowerShell)
-# .\.venv\Scripts\Activate.ps1
+- On Windows PowerShell:
 
-# Synchronize dependencies using uv
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+### Synchronize dependencies
+
+```bash
 uv sync
-
+```
+---
 
 ## `.env` File Configuration
 
