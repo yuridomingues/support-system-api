@@ -5,7 +5,7 @@ API developed in **FastAPI** for registering and managing clients and support ti
 
 ---
 
-## 🚀 Technologies Used
+## Technologies Used
 
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [PostgreSQL](https://www.postgresql.org/)
@@ -26,6 +26,17 @@ API developed in **FastAPI** for registering and managing clients and support ti
 - Python 3.12+
 - Docker and Docker Compose
 - `uv` (optional, but recommended)
+
+## `.env` File Configuration
+
+To run the application, you need to create a `.env` file in the project root with the following environment variables:
+
+```env
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/support_db
+SECRET_KEY=ana
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
 
 ### Local Setup with Docker
 
@@ -80,7 +91,7 @@ Authorization: Bearer <token>
 
 ---
 
-## 📝 Useful Commands
+## Useful Commands
 
 ```bash
 # Start application
