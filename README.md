@@ -142,4 +142,4 @@ make test
 - Project focused on best practices, clarity, and complete API functionality.
 - Authentication protects sensitive routes.
 - Independent tests using local SQLite.
-- URL  [`FRONTEND`](https://github.com/astral-sh/uv)
+- URL  [`FRONTEND`](https://github.com/yuridomingues/support-system-interface)
