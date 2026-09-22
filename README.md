@@ -1,145 +1,118 @@
+# Support System
 
-# Support System API
+Backend do **Support System**, um projeto full-stack para gerenciamento de clientes e chamados de suporte.
 
-API developed in **FastAPI** for registering and managing clients and support tickets.
+O produto foi desenvolvido em dois repositórios:
 
----
+- Backend: este repositório
+- Frontend: https://github.com/yuridomingues/support-system-interface
 
-## Technologies Used
+No portfólio, os dois devem ser considerados um único projeto.
 
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [Alembic](https://alembic.sqlalchemy.org/)
-- [Pydantic v2](https://docs.pydantic.dev/)
-- [Python-Jose (JWT)](https://python-jose.readthedocs.io/en/latest/)
-- [Pytest + pytest-asyncio](https://docs.pytest.org/)
-- [Docker](https://www.docker.com/) + [Docker Compose](https://docs.docker.com/compose/)
-- [uv](https://github.com/astral-sh/uv)
+## Stack
 
----
+- FastAPI
+- PostgreSQL
+- SQLAlchemy
+- Alembic
+- Pydantic
+- JWT
+- Pytest
+- Docker / Docker Compose
+- uv
 
-## Installation and Local Execution
+## Funcionalidades
 
-### Prerequisites
+- autenticação JWT;
+- cadastro e gerenciamento de clientes;
+- abertura e gerenciamento de chamados;
+- relacionamento entre clientes e tickets;
+- migrations de banco;
+- testes automatizados;
+- execução local com Docker.
+
+## Rodando localmente
+
+### Dependências
 
 - Python 3.12+
-- Docker and Docker Compose
-- `uv` (optional, but recommended)
+- Docker e Docker Compose
+- uv
 
-## Virtual Environment Setup with `uv`
-
-It is recommended to use [`uv`](https://github.com/astral-sh/uv) to simplify virtual environment creation and dependency synchronization.
-
-### Create and activate the virtual environment
+### Ambiente Python
 
 ```bash
 uv venv
-```
-
-### Activate the virtual environment
-
-- On Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-- On Windows PowerShell:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-### Synchronize dependencies
-
-```bash
 uv sync
 ```
----
 
-## `.env` File Configuration
+### Configuração
 
-To run the application, you need to create a `.env` file in the project root with the following environment variables:
+Crie um arquivo `.env` a partir da configuração esperada pela aplicação.
+
+Exemplo:
 
 ```env
 DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/support_db
-SECRET_KEY=ana
+SECRET_KEY=<generate-a-long-random-secret>
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-### Local Setup with Docker
+Nunca reutilize o valor de exemplo como segredo real.
+
+### Executar
 
 ```bash
 make up
+```
 
-# Access the API at:
+API:
+
+```text
 http://localhost:8000
 ```
 
-### Run Automated Tests
+### Testes
 
 ```bash
-# Using Makefile
 make test
-
 ```
 
-> The tests use **in-memory SQLite** to ensure isolation and speed.
+Os testes usam SQLite isolado para acelerar a suíte local.
 
----
+## Autenticação
 
-## Authentication
+O login é feito pelo endpoint:
 
-Authentication is done via JWT. Use the endpoint:
-
-```
+```text
 POST /auth/token
 ```
 
-**Request body (x-www-form-urlencoded):**
+Use uma conta criada para o ambiente de desenvolvimento ou seed de teste. O repositório não deve documentar credenciais fixas que possam ser copiadas para outros ambientes.
 
-```
-username=admin
-password=1234
-```
+Depois do login:
 
-**Usage example:**
-
-Add the token to the header of protected requests:
-
-```
+```text
 Authorization: Bearer <token>
 ```
 
----
+## Arquitetura do produto
 
-## Database
-
-- **Production:** PostgreSQL (port 6543 in `docker-compose.yml`)
-- **Tests:** In-memory SQLite (`test.db` may be generated locally)
-
----
-
-## Useful Commands
-
-```bash
-# Start application
-make up
-
-# Stop containers and remove volumes
-make down
-
-# Run tests
-make test
+```text
+React / Vite
+     ↓
+   Axios
+     ↓
+FastAPI
+     ↓
+SQLAlchemy / Alembic
+     ↓
+PostgreSQL
 ```
 
----
+Frontend: https://github.com/yuridomingues/support-system-interface
 
-## Notes
+## Próxima organização
 
-- Project focused on best practices, clarity, and complete API functionality.
-- Authentication protects sensitive routes.
-- Independent tests using local SQLite.
-- URL  [`FRONTEND`](https://github.com/yuridomingues/support-system-interface)
+A API e a interface pertencem ao mesmo produto. A direção recomendada é consolidá-las futuramente em um monorepo com `backend/` e `frontend/`, preservando o histórico dos repositórios atuais.
